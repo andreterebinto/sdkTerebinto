@@ -11,7 +11,7 @@ import UIKit
 
 public class sdkTeste: UIViewController {
     
-    public func testeAlert(){
+    public func testeAlert(control: UIViewController){
        
          
         let alert = UIAlertController(title: "Sign out?", message: "You can always access your content by signing back in", preferredStyle: UIAlertController.Style.alert)
@@ -24,7 +24,7 @@ public class sdkTeste: UIViewController {
                                       handler: {(_: UIAlertAction!) in
                                         //Sign out action
         }))
-        self.present(alert, animated: true, completion: nil)
+        control.present(alert, animated: true, completion: nil)
     }
 
 
