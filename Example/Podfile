@@ -1,0 +1,6 @@
+use_frameworks!
+target 'sdkTerebinto_Tests' do
+  pod 'sdkTerebinto', :path => '../'
+  
+  
+end
