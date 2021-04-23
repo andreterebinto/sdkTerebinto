@@ -1,0 +1,11 @@
+/* 
+  InfoPlist.strings
+  
+
+  Created by Himanshu Singla on 03/04/18.
+  
+*/
+"NSLocationWhenInUseUsageDescription" = "O aplicativo precisa acessar sua localização para reservar corridas e rastrear taxistas";
+"NSCameraUsageDescription" = "O acesso a camera é necessário para inserir a foto do seu perfil.";
+"NSPhotoLibraryUsageDescription" = "O acesso as suas fotos é necessário para inserir a foto do seu perfil.";
+"NSMicrophoneUsageDescription" = "O acesso ao microfone é necessário para enviar mensagens ao taxista.";

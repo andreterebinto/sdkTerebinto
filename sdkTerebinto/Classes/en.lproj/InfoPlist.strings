@@ -1,0 +1,11 @@
+/* 
+  InfoPlist.strings
+  
+
+  Created by Himanshu Singla on 03/04/18.
+  
+*/
+"NSLocationWhenInUseUsageDescription" = "App needs to access your location to book rides and track drivers";
+"NSCameraUsageDescription" = "Camera access is required to insert the photo of your profile.";
+"NSPhotoLibraryUsageDescription" = "Photo access is required to insert the photo of your profile.";
+"NSMicrophoneUsageDescription" = "Access to the microphone is required to send messages to the taxi driver.";

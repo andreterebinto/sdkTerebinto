@@ -1,0 +1,6 @@
+framework module sdkTerebinto {
+  umbrella header "sdkTerebinto-umbrella.h"
+
+  export *
+  module * { export * }
+}

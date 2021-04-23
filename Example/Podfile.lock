@@ -1,0 +1,16 @@
+PODS:
+  - sdkTerebinto (0.1.0)
+
+DEPENDENCIES:
+  - sdkTerebinto (from `../`)
+
+EXTERNAL SOURCES:
+  sdkTerebinto:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  sdkTerebinto: e5d3b8877ec795a44a4e1b5f9f86777844ba6b1c
+
+PODFILE CHECKSUM: e552842b3ef913e9a9ae724499cec1516217aa8c
+
+COCOAPODS: 1.10.1

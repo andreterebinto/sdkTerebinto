@@ -13,14 +13,14 @@
 
 /* Begin PBXFileReference section */
 		00F1C3F0865891EF502E9079 /* Pods-sdkTerebinto_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sdkTerebinto_Tests.release.xcconfig"; path = "Target Support Files/Pods-sdkTerebinto_Tests/Pods-sdkTerebinto_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		1298E44086F26599AAE86710 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		1298E44086F26599AAE86710 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		607FACE51AFB9204008FA782 /* sdkTerebinto_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = sdkTerebinto_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		E05967B0CD115BF5A7EE2675 /* Pods-sdkTerebinto_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sdkTerebinto_Tests.debug.xcconfig"; path = "Target Support Files/Pods-sdkTerebinto_Tests/Pods-sdkTerebinto_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		E62D2B2A3BB27D3C4200289A /* Pods_sdkTerebinto_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_sdkTerebinto_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E83CD2B3017C0E3804C4D072 /* sdkTerebinto.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = sdkTerebinto.podspec; path = ../sdkTerebinto.podspec; sourceTree = "<group>"; };
-		FB3AE13A994E81B3E59C4DA2 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		E83CD2B3017C0E3804C4D072 /* sdkTerebinto.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = sdkTerebinto.podspec; path = ../sdkTerebinto.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		FB3AE13A994E81B3E59C4DA2 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,7 +41,6 @@
 				E05967B0CD115BF5A7EE2675 /* Pods-sdkTerebinto_Tests.debug.xcconfig */,
 				00F1C3F0865891EF502E9079 /* Pods-sdkTerebinto_Tests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -131,10 +130,6 @@
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = CocoaPods;
 				TargetAttributes = {
-					607FACCF1AFB9204008FA782 = {
-						CreatedOnToolsVersion = 6.3.1;
-						LastSwiftMigration = 0900;
-					};
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
 						LastSwiftMigration = 0900;
@@ -147,6 +142,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
