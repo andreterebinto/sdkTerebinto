@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-struct RegisterNetwork {
+public struct RegisterNetwork {
     
     private static var countLoader = 0 {
         didSet {

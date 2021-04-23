@@ -10,7 +10,7 @@ import Alamofire
 import SwiftyJSON
 
 
-class requestServer {
+public class requestServer {
     
     static let debugRequests = true
     

@@ -20,7 +20,6 @@
 		6582184626332CCB002D8090 /* sdkTeste.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6582183F26332CCB002D8090 /* sdkTeste.swift */; };
 		6582184726332CCB002D8090 /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6582184026332CCB002D8090 /* en.lproj */; };
 		AD4371E9EE39C860C17A37132A2A7E25 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
-		DB13EC6A75C0243A00E1B9C56FCF13E1 /* ReplaceMe.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB136425ECE013778A8E88C630AD19AA /* ReplaceMe.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,7 +56,6 @@
 		860EFA7F446DE21D51ECD6A79576954D /* Pods-sdkTerebinto_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-sdkTerebinto_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		9BC2A0ADFE4C65F553EEED739F5BB61A /* sdkTerebinto-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "sdkTerebinto-dummy.m"; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		AB136425ECE013778A8E88C630AD19AA /* ReplaceMe.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ReplaceMe.swift; path = sdkTerebinto/Classes/ReplaceMe.swift; sourceTree = "<group>"; };
 		B373A9822CB5C10E69D577EA3FAD4DEE /* Pods_sdkTerebinto_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_sdkTerebinto_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7D4BA417AD880C7616FAB17CB35CB98 /* Pods-sdkTerebinto_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-sdkTerebinto_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		CB73AAB9997144349882C6670FA9543A /* sdkTerebinto-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "sdkTerebinto-Info.plist"; sourceTree = "<group>"; };
@@ -165,7 +163,6 @@
 				6582183D26332CCB002D8090 /* Model */,
 				6582183E26332CCB002D8090 /* pt-BR.lproj */,
 				6582183F26332CCB002D8090 /* sdkTeste.swift */,
-				AB136425ECE013778A8E88C630AD19AA /* ReplaceMe.swift */,
 				FCEDB28C1813FB20CC133C81D90918CA /* Pod */,
 				C4AE977C5E0CBF3495EF3BFAAFF61663 /* Support Files */,
 			);
@@ -314,7 +311,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6582184626332CCB002D8090 /* sdkTeste.swift in Sources */,
-				DB13EC6A75C0243A00E1B9C56FCF13E1 /* ReplaceMe.swift in Sources */,
 				6582184226332CCB002D8090 /* AppConstants.swift in Sources */,
 				1F8409F1884849C79327F148FCBAF874 /* sdkTerebinto-dummy.m in Sources */,
 			);

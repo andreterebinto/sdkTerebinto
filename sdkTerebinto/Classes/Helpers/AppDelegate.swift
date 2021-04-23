@@ -9,9 +9,9 @@ import Foundation
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+public class AppDelegate: UIResponder, UIApplicationDelegate {
     static let shared = UIApplication.shared.delegate as! AppDelegate
-    func pathForLocalizationFile() -> String {
+    public func pathForLocalizationFile() -> String {
         var path = String()
         if let language = UserDefaults.standard.object(forKey: "Language") {
           if  language as! String == "en"  {

@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-enum LoginRoutes {
+public enum LoginRoutes {
     
     static let originalDNS = AppRoutes.originalDNS
     static let baseURL = "\(originalDNS)"

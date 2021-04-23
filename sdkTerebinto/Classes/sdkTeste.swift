@@ -9,9 +9,9 @@
 import UIKit
 
 
-class sdkTeste: UIViewController {
+public class sdkTeste: UIViewController {
     
-    func testeAlert(){
+    public func testeAlert(){
        
          
         let alert = UIAlertController(title: "Sign out?", message: "You can always access your content by signing back in", preferredStyle: UIAlertController.Style.alert)

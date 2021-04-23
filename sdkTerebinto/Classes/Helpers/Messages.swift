@@ -6,7 +6,7 @@
 //
 
 import Foundation
-enum Messages: String {
+public enum Messages: String {
     
     case appName
     case badRequest
