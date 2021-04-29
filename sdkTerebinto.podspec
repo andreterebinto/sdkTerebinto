@@ -41,6 +41,7 @@ TODO: Add long description of the pod here.
   # s.frameworks = 'UIKit', 'MapKit'
    s.dependency 'Alamofire'
    s.dependency 'SwiftyJSON'
+   s.dependency 'scryptTerebinto'
    s.dependency 'CryptoSwift', '~> 1.3.8'
    s.dependency 'CommonCryptoModule', '~> 1.0.1'
    
