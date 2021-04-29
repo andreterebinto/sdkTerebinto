@@ -26,6 +26,7 @@ TODO: Add long description of the pod here.
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Andre Terebinto' => 'andreterebinto@hotmail.com' }
   s.source           = { :git => 'https://github.com/andreterebinto/sdkTerebinto.git', :tag => s.version.to_s }
+  
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '10.0'
@@ -40,8 +41,7 @@ TODO: Add long description of the pod here.
   # s.frameworks = 'UIKit', 'MapKit'
    s.dependency 'Alamofire'
    s.dependency 'SwiftyJSON'
-   s.dependency 'scryptTerebinto'
-   s.dependency 'CryptoSwift'
-   s.dependency 'CommonCryptoModule'
+   s.dependency 'CryptoSwift', '~> 1.3.8'
+   s.dependency 'CommonCryptoModule', '~> 1.0.1'
    
 end
