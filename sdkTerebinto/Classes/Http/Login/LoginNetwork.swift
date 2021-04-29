@@ -105,12 +105,6 @@ public struct RegisterNetwork {
                   
                 }
                 
-                
-                
-                
-                
-                
-                //completion(true, json)
             } else {
                 completion(false,JSON.null)
             }
