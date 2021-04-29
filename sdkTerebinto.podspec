@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'sdkTerebinto'
-  s.version          = '1.7.0'
+  s.version          = '1.8.0'
   s.summary          = 'A short description of sdkTerebinto.'
 
 # This description is used to generate tags and improve search results.
@@ -40,5 +40,8 @@ TODO: Add long description of the pod here.
   # s.frameworks = 'UIKit', 'MapKit'
    s.dependency 'Alamofire'
    s.dependency 'SwiftyJSON'
+   s.dependency 'scryptTerebinto', :git => 'https://github.com/andreterebinto/scryptTerebinto.git', :branch => 'main', :tag => '1.0.0'
+   s.dependency 'CryptoSwift', '~> 1.3.8'
+   s.dependency 'CommonCryptoModule', '~> 1.0.1'
    
 end

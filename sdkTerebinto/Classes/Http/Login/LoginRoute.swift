@@ -14,7 +14,8 @@ public enum LoginRoutes {
     static let originalDNS = AppRoutes.originalDNS
     static let baseURL = "\(originalDNS)"
     static let headers = AppRoutes.headers
-    static let registrationURL = "passenger/save"
+    static let saltURL = "auth/user/salt?email="
+    static let loginURL = "auth/login"
     static let updateURL = "passenger/update"
     static let debugRequests = true
     
