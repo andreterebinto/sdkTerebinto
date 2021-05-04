@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'sdkTerebinto'
-  s.version          = '1.8.0'
+  s.version          = '1.9.0'
   s.summary          = 'A short description of sdkTerebinto.'
 
 # This description is used to generate tags and improve search results.

@@ -50,6 +50,22 @@ public struct RegisterNetwork {
         }
     }
     
+    public static func refreshToken(parameters: [String: Any], completion:@escaping (_ success: Bool,_ tipology: JSON) -> Void){
+        
+        LoginRoutes.request(.post, endpoint: LoginRoutes.baseURL+LoginRoutes.loginURL, parameters: parameters ) { (json) in
+            if json != JSON.null {
+                guard let dictionary = json.dictionaryObject else{
+                    completion(false,JSON.null)
+                    return
+                }
+                print(json)
+                completion(true, json)
+            } else {
+                completion(false,JSON.null)
+            }
+        }
+    }
+    
     public static func login(parameters: [String: Any], completion:@escaping (_ success: Bool,_ tipology: JSON) -> Void){
         
         LoginRoutes.request(.post, endpoint: LoginRoutes.baseURL+LoginRoutes.loginURL, parameters: parameters ) { (json) in
@@ -68,78 +84,76 @@ public struct RegisterNetwork {
     
     public static func getSalt(email: String, password: String, completion:@escaping (_ success: Bool,_ tipology: JSON) -> Void){
         
-        LoginRoutes.request(.get, endpoint: LoginRoutes.baseURL+LoginRoutes.saltURL+email ) { (json) in
-            if json != JSON.null {
-                guard let dictionary = json.dictionaryObject else{
-                    completion(false,JSON.null)
-                    return
-                }
-                
-                if(json["Message"] == "Success"){
-                   
-                    //GetPassWord Salt
-                    let salt = json["PasswordSalt"].description;
-                    
-                    if let nsdata1 = Data(base64Encoded: salt, options: NSData.Base64DecodingOptions.ignoreUnknownCharacters) {
-
-                        let passSalt = nsdata1.withUnsafeBytes {
-                           Array(UnsafeBufferPointer<UInt8>(start: $0, count: nsdata1.count/MemoryLayout<UInt8>.size))
-                        }
-                        let passwordArray = uiTextPassword.text?.description.data(using: .utf16LittleEndian)!
-                       
-                        do{
-                           let key =  try scrypt(password: passwordArray!.bytes, salt: passSalt, length: 32, N: 32768, r: 8, p: 1)
-                            let parameters = ["Password": (key.toBase64())!, "AuthSessionKey": json["AuthSessionKey"].description] as [String : String]
-                            login(parameters: parameters) { (success, response) in
-                                if success {
-                                    print(response)
-                                    completion(true, response)
-                                } else {
-                                    completion(false,JSON.null)
-                                }
-                        }catch{
-                            completion(false,JSON.null)
-                        }
+        
+        if(email == ""){
+            completion(false,JSON.null)
+        }else{
+        
+        
+            LoginRoutes.request(.get, endpoint: LoginRoutes.baseURL+LoginRoutes.saltURL+email ) { (json) in
+                if json != JSON.null {
+                    guard let dictionary = json.dictionaryObject else{
+                        completion(false,JSON.null)
+                        return
                     }
                     
-                  
+                    if(json["Message"] == "Success"){
+                       
+                        //GetPassWord Salt
+                        let salt = json["PasswordSalt"].description;
+                        
+                        if let nsdata1 = Data(base64Encoded: salt, options: NSData.Base64DecodingOptions.ignoreUnknownCharacters) {
+
+                            let passSalt = nsdata1.withUnsafeBytes {
+                               Array(UnsafeBufferPointer<UInt8>(start: $0, count: nsdata1.count/MemoryLayout<UInt8>.size))
+                            }
+                            let passwordArray = password.data(using: .utf16LittleEndian)!
+                           
+                            do{
+                                let key =  try scrypt(password: passwordArray.bytes, salt: passSalt, length: 32, N: 32768, r: 8, p: 1)
+                                let parameters = ["Password": (key.toBase64())!, "AuthSessionKey": json["AuthSessionKey"].description] as [String : String]
+                                
+                                    login(parameters: parameters) {(success, response) in
+                                    
+                                        if success {
+                                            if(response["AuthStatus"] == 0){
+                                                let pref = UserDefaults.standard
+                                                pref.set(response["AuthSessionKey"].rawString(), forKey: "AuthSessionKey")
+                                                pref.set(response["RefreshToken"].rawString(), forKey: "RefreshToken")
+                                                pref.set(response["Token"].rawString(), forKey: "Token")
+                                                completion(true,response)
+                                            }else{
+                                                completion(false,JSON.null)
+                                            }
+                                          
+                                        } else {
+                                            completion(false,JSON.null)
+                                        }
+                                }
+                                
+                                
+                                
+                                
+                                
+                            }catch{
+                                completion(false,JSON.null)
+                            }
+                        }
+                        
+                      
+                    }else{
+                        completion(false,JSON.null)
+                    }
+                    
+                } else {
+                    completion(false,JSON.null)
                 }
-                
-            } else {
-                completion(false,JSON.null)
             }
+            
         }
     }
     
-    static func update(parameters: [String: Any], completion:@escaping (_ success: Bool,_ tipology: JSON) -> Void){
-        
-        requestServer.request(.post, endpoint: LoginRoutes.baseURL+LoginRoutes.updateURL, parameters: parameters ) { (json) in
-            if json != JSON.null {
-                guard let dictionary = json.dictionaryObject else{
-                    completion(false,JSON.null)
-                    return
-                }
-                
-                if let error = dictionary["typeErrorReturn"] as? String{
-                    
-                    if error == "SUCCESS"{
-                        let object = json["object"].dictionaryValue
-                        debugPrint(object)
-                        completion(true, JSON(object))
-                    } else if error == "BUSINESS"{
-                        completion(true, json["message"])
-                        
-                    }else if error == "EXECUTION"{
-                        completion(false, json["message"])
-                    }else {
-                        completion(false,JSON.null)
-                    }
-                }
-            } else {
-                completion(false,JSON.null)
-            }
-        }
-    }
+
     
     private static func showActivityIndicator(show: Bool) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = show
@@ -178,7 +192,7 @@ public struct RegisterNetwork {
     /// - Parameter p: Number of parallelizable iterations.
     /// - Returns: Password hash corresponding to given `length`.
     /// - Throws: [ScryptError](x-source-tag://scryptErrorType)
-    public func scrypt(password: [UInt8], salt: [UInt8], length: Int = 64,
+    public static func scrypt(password: [UInt8], salt: [UInt8], length: Int = 64,
                        N: UInt64 = 16384, r: UInt32 = 8, p: UInt32 = 1) throws -> [UInt8] {
         guard length > 0, UInt64(length) <= 137_438_953_440 else {
             throw ScryptError.invalidLength

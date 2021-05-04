@@ -16,6 +16,7 @@ public enum LoginRoutes {
     static let headers = AppRoutes.headers
     static let saltURL = "auth/user/salt?email="
     static let loginURL = "auth/login"
+    static let refreshURL = "auth/refresh"
     static let updateURL = "passenger/update"
     static let debugRequests = true
     
