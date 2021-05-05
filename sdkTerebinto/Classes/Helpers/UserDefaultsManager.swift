@@ -33,11 +33,11 @@ public struct UserDefaultsManagers {
         return UserDefaults.standard.string(forKey: "Token") ?? ""
     }
     
-    public func getRefreshToken() -> String{
+    public static func getRefreshToken() -> String{
         return UserDefaults.standard.string(forKey: "RefreshToken") ?? ""
     }
     
-    public func getAuthSessionKey() -> String{
+    public static func getAuthSessionKey() -> String{
         return UserDefaults.standard.string(forKey: "AuthSessionKey") ?? ""
     }
     

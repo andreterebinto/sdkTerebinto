@@ -14,7 +14,7 @@ import scrypt
 import JWTDecode
 
 
-public struct RegisterNetwork {
+public struct UserNetwork {
     
     private static var countLoader = 0 {
         didSet {
@@ -113,65 +113,20 @@ public struct RegisterNetwork {
         }
     }
     
-    public static func getSalt(email: String, password: String, completion:@escaping (_ success: Bool,_ tipology: JSON) -> Void){
+    public static func getUser(completion:@escaping (_ success: Bool,_ tipology: JSON) -> Void){
         
-        
-        if(email == ""){
-            completion(false,JSON.null)
-        }else{
-        
-        
-            LoginRoutes.request(.get, endpoint: LoginRoutes.baseURL+LoginRoutes.saltURL+email ) { (json) in
+        UserRoutes.request(.get, endpoint: UserRoutes.baseURL+UserRoutes.geuUserURL ) { (json) in
                 if json != JSON.null {
                     guard json.dictionaryObject != nil else{
                         completion(false,JSON.null)
                         return
                     }
                     
+                    print(json)
+                    
                     if(json["Message"] == "Success"){
                        
-                        //GetPassWord Salt
-                        let salt = json["PasswordSalt"].description;
-                        
-                        if let nsdata1 = Data(base64Encoded: salt, options: NSData.Base64DecodingOptions.ignoreUnknownCharacters) {
-
-                            let passSalt = nsdata1.withUnsafeBytes {
-                               Array(UnsafeBufferPointer<UInt8>(start: $0, count: nsdata1.count/MemoryLayout<UInt8>.size))
-                            }
-                            let passwordArray = password.data(using: .utf16LittleEndian)!
-                           
-                            do{
-                                let key =  try scrypt(password: passwordArray.bytes, salt: passSalt, length: 32, N: 32768, r: 8, p: 1)
-                                let parameters = ["Password": (key.toBase64())!, "AuthSessionKey": json["AuthSessionKey"].description] as [String : String]
-                                
-                                    login(parameters: parameters) {(success, response) in
-                                    
-                                        if success {
-                                            if(response["AuthStatus"] == 0){
-                                                let pref = UserDefaults.standard
-                                                pref.set(response["AuthSessionKey"].rawString(), forKey: "AuthSessionKey")
-                                                pref.set(response["RefreshToken"].rawString(), forKey: "RefreshToken")
-                                                pref.set(response["Token"].rawString(), forKey: "Token")
-                                                completion(true,response)
-                                            }else{
-                                                completion(false,JSON.null)
-                                            }
-                                          
-                                        } else {
-                                            completion(false,JSON.null)
-                                        }
-                                }
-                                
-                                
-                                
-                                
-                                
-                            }catch{
-                                completion(false,JSON.null)
-                            }
-                        }
-                        
-                      
+                       
                     }else{
                         completion(false,JSON.null)
                     }
@@ -182,6 +137,8 @@ public struct RegisterNetwork {
             }
             
         }
+            
+        
     }
   
     
