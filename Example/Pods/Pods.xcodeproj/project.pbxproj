@@ -19,6 +19,7 @@
 		6582184526332CCB002D8090 /* pt-BR.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6582183E26332CCB002D8090 /* pt-BR.lproj */; };
 		6582184626332CCB002D8090 /* sdkTeste.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6582183F26332CCB002D8090 /* sdkTeste.swift */; };
 		6582184726332CCB002D8090 /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6582184026332CCB002D8090 /* en.lproj */; };
+		65C698D5264356E00021BE25 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C698D4264356E00021BE25 /* User.swift */; };
 		AD4371E9EE39C860C17A37132A2A7E25 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +49,7 @@
 		6582183E26332CCB002D8090 /* pt-BR.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "pt-BR.lproj"; path = "sdkTerebinto/Classes/pt-BR.lproj"; sourceTree = "<group>"; };
 		6582183F26332CCB002D8090 /* sdkTeste.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = sdkTeste.swift; path = sdkTerebinto/Classes/sdkTeste.swift; sourceTree = "<group>"; };
 		6582184026332CCB002D8090 /* en.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = en.lproj; path = sdkTerebinto/Classes/en.lproj; sourceTree = "<group>"; };
+		65C698D4264356E00021BE25 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		6BC29693ECFBA46D5AC02EA54F629E1A /* sdkTerebinto.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = sdkTerebinto.debug.xcconfig; sourceTree = "<group>"; };
 		73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		7580C9AE99E218A98723EF6FED44D8D3 /* sdkTerebinto.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = sdkTerebinto.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -119,6 +121,14 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
+		65C698D3264356C60021BE25 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				65C698D4264356E00021BE25 /* User.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		BB9FC9C5462EC30A7798268575DEB860 /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -156,6 +166,7 @@
 		CF375CD2CB69C0907834865D469AAB6A /* sdkTerebinto */ = {
 			isa = PBXGroup;
 			children = (
+				65C698D3264356C60021BE25 /* Model */,
 				6582183B26332CCA002D8090 /* AppConstants.swift */,
 				6582184026332CCB002D8090 /* en.lproj */,
 				6582183C26332CCB002D8090 /* Helpers */,
@@ -263,6 +274,11 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1100;
 				LastUpgradeCheck = 1100;
+				TargetAttributes = {
+					9F2BC120FF0223028C70E6748435125C = {
+						LastSwiftMigration = 1240;
+					};
+				};
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -320,6 +336,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65C698D5264356E00021BE25 /* User.swift in Sources */,
 				0AF2CFFFE10E2D0DE5837C9930C03170 /* Pods-sdkTerebinto_Tests-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -499,6 +516,7 @@
 			baseConfigurationReference = B7D4BA417AD880C7616FAB17CB35CB98 /* Pods-sdkTerebinto_Tests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
@@ -520,6 +538,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -564,6 +583,7 @@
 			baseConfigurationReference = 3753A1B4E620319A7D230ABCD6259391 /* Pods-sdkTerebinto_Tests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
@@ -585,6 +605,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";

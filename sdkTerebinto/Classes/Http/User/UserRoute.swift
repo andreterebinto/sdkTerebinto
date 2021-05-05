@@ -26,9 +26,9 @@ public enum UserRoutes {
     static func request(_ method : HTTPMethod, endpoint : String,  completion : @escaping (_ data : JSON) -> Void) -> Void {
         
         let headers = [
-                "Authorization": "Bearer "+ UserDefaultsManagers.getToken(),
+                "Authorization": "Bearer "+UserDefaultsManagers.getToken(),
                 "Content-Type": "application/json"
-            ]
+            ] as HTTPHeaders
         
             AF.request(endpoint, method: method,encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
             
@@ -50,9 +50,9 @@ public enum UserRoutes {
     static func request(_ method : HTTPMethod, endpoint : String, parameters : [String : Any], completion : @escaping (_ data : JSON) -> Void) -> Void {
         
         let headers = [
-                "Authorization": "Bearer "+ UserDefaultsManagers.getToken(),
+                "Authorization": "Bearer "+UserDefaultsManagers.getToken(),
                 "Content-Type": "application/json"
-            ]
+            ] as HTTPHeaders
         
         AF.request(endpoint, method: method, parameters: parameters,encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
             print(response)
