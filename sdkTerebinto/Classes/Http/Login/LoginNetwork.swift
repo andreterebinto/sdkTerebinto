@@ -11,6 +11,8 @@ import SwiftyJSON
 import CryptoSwift
 import CommonCrypto
 import scrypt
+import JWTDecode
+
 
 public struct RegisterNetwork {
     
@@ -52,7 +54,21 @@ public struct RegisterNetwork {
     
     public static func refreshToken(parameters: [String: Any], completion:@escaping (_ success: Bool,_ tipology: JSON) -> Void){
         
-        LoginRoutes.request(.post, endpoint: LoginRoutes.baseURL+LoginRoutes.loginURL, parameters: parameters ) { (json) in
+        do{
+            let jwt = try decode(jwt: UserDefaultsManagers.getToken())
+            print(jwt.body["exp"])
+        }catch{
+            print("error")
+        }
+        
+        let now = NSDate()
+        let nowTimeStamp = self.getCurrentTimeStampWOMiliseconds(dateToConvert: now)
+
+        print(nowTimeStamp)
+        
+        completion(false,JSON.null)
+        
+        /*LoginRoutes.request(.post, endpoint: LoginRoutes.baseURL+LoginRoutes.refreshURL, parameters: parameters ) { (json) in
             if json != JSON.null {
                 guard let dictionary = json.dictionaryObject else{
                     completion(false,JSON.null)
@@ -63,7 +79,7 @@ public struct RegisterNetwork {
             } else {
                 completion(false,JSON.null)
             }
-        }
+        }*/
     }
     
     public static func login(parameters: [String: Any], completion:@escaping (_ success: Bool,_ tipology: JSON) -> Void){

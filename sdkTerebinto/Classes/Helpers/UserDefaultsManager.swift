@@ -8,7 +8,7 @@
 
 import SwiftyJSON
 
-public class UserDefaultsManager {
+public struct UserDefaultsManagers {
     
     public func getObject(key:String) -> NSData{
         var jsonString = String()
@@ -20,7 +20,7 @@ public class UserDefaultsManager {
         return encodedString
     }
     
-    public func removeObjects(){
+    public static func removeObjects(){
         let prefs = UserDefaults.standard
         prefs.removeObject(forKey: "AuthSessionKey")
         prefs.removeObject(forKey: "RefreshToken")
@@ -29,34 +29,34 @@ public class UserDefaultsManager {
         prefs.removeObject(forKey: "scan")
     }
     
-    public func getToken(){
-        return UserDefaults.standard.string(forKey: "Token")
+    public static func getToken() -> String{
+        return UserDefaults.standard.string(forKey: "Token") ?? ""
     }
     
-    public func getRefreshToken(){
-        return UserDefaults.standard.string(forKey: "RefreshToken")
+    public func getRefreshToken() -> String{
+        return UserDefaults.standard.string(forKey: "RefreshToken") ?? ""
     }
     
-    public func getAuthSessionKey(){
-        returnUserDefaults.standard.string(forKey: "AuthSessionKey")
+    public func getAuthSessionKey() -> String{
+        return UserDefaults.standard.string(forKey: "AuthSessionKey") ?? ""
     }
     
-    public func setPin(pin: String){
+    public static func setPin(pin: String){
         let pref = UserDefaults.standard
         pref.set(pin, forKey: "pin")
     }
     
-    public func getPin(){
-        return UserDefaults.standard.string(forKey: "pin")
+    public static func getPin() -> String{
+        return UserDefaults.standard.string(forKey: "pin") ?? ""
     }
     
-    public func setScan(scan: String){
+    public static func setScan(scan: String){
         let pref = UserDefaults.standard
         pref.set(scan, forKey: "scan")
     }
     
-    public func getScan(){
-        return UserDefaults.standard.string(forKey: "scan")
+    public static func getScan() -> String{
+        return UserDefaults.standard.string(forKey: "scan") ?? ""
     }
     
     }
