@@ -93,8 +93,7 @@ public struct RegisterNetwork {
             completion(false,param)
         }else{
         
-        
-            LoginRoutes.request(.get, endpoint: LoginRoutes.baseURL+LoginRoutes.saltURL+email ) { (json) in
+            LoginRoutes.request(.get, endpoint: LoginRoutes.baseURL+LoginRoutes.saltURL+email.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!) { (json) in
                 if json != JSON.null {
                     guard json.dictionaryObject != nil else{
                         let param = ["Message": "Error"] as JSON

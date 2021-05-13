@@ -21,16 +21,8 @@ public enum KeyRoutes {
     static let debugRequests = true
     
     
-    
-    
     static func request(_ method : HTTPMethod, endpoint : String,  completion : @escaping (_ data : JSON) -> Void) -> Void {
-        
-        let headers = [
-                "Authorization": "Bearer "+UserDefaultsManagers.getToken(),
-                "Content-Type": "application/json"
-            ] as HTTPHeaders
-        
-            AF.request(endpoint, method: method,encoding: JSONEncoding.default, headers: headers).responseData { (response) in
+            AF.request(endpoint, method: method,encoding: JSONEncoding.default, headers: nil).responseJSON { (response) in
             
             switch(response.result) {
             case .success(let json):
@@ -47,30 +39,24 @@ public enum KeyRoutes {
         }
     }
     
-    static func request(_ method : HTTPMethod, endpoint : String, parameters : [String : Any], completion : @escaping (_ data : Int) -> Void) -> Void {
+    static func request(_ method : HTTPMethod, endpoint : String, parameters : [String : Any], completion : @escaping (_ data : JSON) -> Void) -> Void {
         
-        print(UserDefaultsManagers.getToken())
-        let headers = [
-                "Authorization": "Bearer "+UserDefaultsManagers.getToken(),
-                "Content-Type": "application/json"
-            ] as HTTPHeaders
-        
-        AF.request(endpoint, method: method, parameters: parameters,encoding: JSONEncoding.prettyPrinted, headers: headers).responseString { (response) in
-           
-            
-            if(response.response?.statusCode == 200){
-                completion(200)
-                
-            }else{
+        AF.request(endpoint, method: method, parameters: parameters,encoding: JSONEncoding.default, headers: nil).responseJSON { (response) in
+            print(response)
+            switch(response.result) {
+            case .success(let json):
+                // TODO: - The line below is crashing. Check it.
+                completion(JSON(json))
+                break
+            case .failure(let error):
                 let uc = ("\(method)").uppercased()
-                print("[NETWORK] \(uc) Request to \(endpoint) failed! (Error:")
+                print("[NETWORK] \(uc) Request to \(endpoint) failed! (Error: \(error))")
                 
-              
-                
+                break
             }
-            
         }
     }
+    
     
 }
 

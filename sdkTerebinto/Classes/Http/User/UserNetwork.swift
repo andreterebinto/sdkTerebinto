@@ -37,12 +37,11 @@ public struct UserNetwork {
             }
         }
     }
-    
-    
+
     public static func changePassword(CurrentPassword: String, NewPassword: String, completion:@escaping (_ success: Bool,_ tipology: Int) -> Void){
         
       
-        LoginRoutes.request(.get, endpoint: LoginRoutes.baseURL+LoginRoutes.saltURL+UserDefaultsManagers.getUSer().Email ) { (json) in
+        LoginRoutes.request(.get, endpoint: LoginRoutes.baseURL+LoginRoutes.saltURL+UserDefaultsManagers.getUSer().Email.addingPercentEncoding(withAllowedCharacters: .alphanumerics)! ) { (json) in
             if json != JSON.null {
                 guard json.dictionaryObject != nil else{
                     completion(false,401)

@@ -1,9 +1,3 @@
-//
-//  LoginRoute.swift
-//  sdkTeste
-//
-//  Created by Andre Terebinto on 23/04/21.
-//
 
 import Foundation
 import Alamofire
@@ -18,6 +12,10 @@ public enum UserRoutes {
     static let loginURL = "auth/login"
     static let refreshURL = "auth/refresh"
     static let updateURL = "user/changeinfo"
+    static let uploadPhotoURL = "user/photo/upload"
+    static let getPhotoURL = "user/photo"
+    static let qrcodeURL = "auth/external/authorize"
+    static let changPassURL = "user/changepassword"
     static let debugRequests = true
     
     
@@ -49,7 +47,6 @@ public enum UserRoutes {
     
     static func request(_ method : HTTPMethod, endpoint : String, parameters : [String : Any], completion : @escaping (_ data : Int) -> Void) -> Void {
         
-        print(UserDefaultsManagers.getToken())
         let headers = [
                 "Authorization": "Bearer "+UserDefaultsManagers.getToken(),
                 "Content-Type": "application/json"
@@ -57,6 +54,56 @@ public enum UserRoutes {
         
         AF.request(endpoint, method: method, parameters: parameters,encoding: JSONEncoding.prettyPrinted, headers: headers).responseString { (response) in
            
+            print(response.response?.statusCode)
+            if(response.response?.statusCode == 200){
+                completion(200)
+                
+            }else{
+                let uc = ("\(method)").uppercased()
+                print("[NETWORK] \(uc) Request to \(endpoint) failed! (Error:")
+                completion(401)
+              
+                
+            }
+            
+        }
+    }
+    
+    
+    static func requestPhoto(_ method : HTTPMethod, endpoint : String,  completion : @escaping (_ data : AFDataResponse<String>) -> Void) -> Void {
+        
+        let headers = [
+                "Authorization": "Bearer "+UserDefaultsManagers.getToken(),
+                "Content-Type": "application/json"
+            ] as HTTPHeaders
+        
+            AF.request(endpoint, method: method,encoding: JSONEncoding.default, headers: headers).responseString { (response) in
+            
+               
+                
+                if(response.response?.statusCode == 200){
+                    completion(response)
+                    
+                }else{
+                    let uc = ("\(method)").uppercased()
+                    print("[NETWORK] \(uc) Request to \(endpoint) failed! (Error:")
+                    completion(response)
+                  
+                    
+                }
+        }
+    }
+    
+    
+    static func requestPut(_ method : HTTPMethod, endpoint : String, parameters : InputStream, completion : @escaping (_ data : Int) -> Void) -> Void {
+        
+        
+        let headers = [
+                "Authorization": "Bearer "+UserDefaultsManagers.getToken(),
+                "Content-Type": "application/json"
+            ] as HTTPHeaders
+        AF.upload(parameters, to: endpoint, method: .put, headers: headers, interceptor: .none, fileManager: FileManager.default, requestModifier: .none).response { (response) in
+         
             
             if(response.response?.statusCode == 200){
                 completion(200)
@@ -68,8 +115,8 @@ public enum UserRoutes {
               
                 
             }
-            
         }
+       
     }
     
 }

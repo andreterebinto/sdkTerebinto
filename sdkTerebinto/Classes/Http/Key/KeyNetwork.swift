@@ -18,13 +18,15 @@ public struct KeyNetwork {
     
     private static var countLoader = 0 {
         didSet {
-            UserNetwork.verifyActivityIndicator()
+            KeyNetwork.verifyActivityIndicator()
         }
     }
     
-    public static func createKey(parameters: [String: Any], completion:@escaping (_ success: Bool,_ tipology: JSON) -> Void){
+    public static func createKey(Name: String, KeyType: Int, Algorithm: Int, Expiration: String, completion:@escaping (_ success: Bool,_ tipology: JSON) -> Void){
+       
+        let parameters = ["Name": Name, "KeyType": KeyType, "Algorithm": Algorithm, "Expiration": Expiration, "Value": ""] as [String : String]
         
-        KeyRoute.request(.post, endpoint: KeyRoute.baseURL+KeyRoute.greateKeyUrl, parameters: parameters ) { (json) in
+        KeyRoutes.request(.post, endpoint: KeyRoutes.baseURL+KeyRoutes.greateKeyUrl, parameters: parameters ) { (json) in
             if json != JSON.null {
                 guard json.dictionaryObject != nil else{
                     completion(false,JSON.null)
@@ -41,7 +43,7 @@ public struct KeyNetwork {
     public static func getKeys(id: String?, completion:@escaping (_ success: Bool,_ tipology: JSON) -> Void){
         
         if(id != ""){
-            KeyRoute.request(.post, endpoint: KeyRoute.baseURL+KeyRoute.getKeyByIdURL+id, parameters: parameters ) { (json) in
+            KeyRoutes.request(.get, endpoint: KeyRoutes.baseURL+KeyRoutes.getKeyByIdURL+id! ) { (json) in
                 if json != JSON.null {
                     guard json.dictionaryObject != nil else{
                         completion(false,JSON.null)
@@ -54,7 +56,7 @@ public struct KeyNetwork {
                 }
             }
         }else{
-            KeyRoute.request(.post, endpoint: KeyRoute.baseURL+KeyRoute.greateKeyUrl, parameters: parameters ) { (json) in
+            KeyRoutes.request(.post, endpoint: KeyRoutes.baseURL+KeyRoutes.greateKeyUrl ) { (json) in
                 if json != JSON.null {
                     guard json.dictionaryObject != nil else{
                         completion(false,JSON.null)
@@ -82,9 +84,9 @@ public struct KeyNetwork {
     
     private static func verifyActivityIndicator() {
         if countLoader > 0 && !UIApplication.shared.isNetworkActivityIndicatorVisible {
-            UserNetwork.showActivityIndicator(show: true)
+            KeyNetwork.showActivityIndicator(show: true)
         } else if countLoader == 0 {
-            UserNetwork.showActivityIndicator(show: false)
+            KeyNetwork.showActivityIndicator(show: false)
         }
     }
     
