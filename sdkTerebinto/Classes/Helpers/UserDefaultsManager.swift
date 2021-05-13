@@ -27,6 +27,10 @@ public struct UserDefaultsManagers {
         prefs.removeObject(forKey: "Token")
         prefs.removeObject(forKey: "pin")
         prefs.removeObject(forKey: "scan")
+        prefs.removeObject(forKey: "User")
+        prefs.removeObject(forKey: "imageUSer")
+        prefs.removeObject(forKey: "faceId")
+        
     }
     
     public static func getToken() -> String{
@@ -59,6 +63,43 @@ public struct UserDefaultsManagers {
         return UserDefaults.standard.string(forKey: "scan") ?? ""
     }
     
+    public static func setImage(image: String){
+        let pref = UserDefaults.standard
+        pref.set(image, forKey: "imageUSer")
+    }
+    
+    public static func getImage() -> String{
+        return UserDefaults.standard.string(forKey: "imageUSer") ?? ""
+    }
+    
+    
+    
+    public static func getUSer() -> User{
+        var retornoJson: User
+        let parameter = [] as JSON
+        retornoJson = User(json: parameter)!
+       
+            
+            if let result = UserDefaults.standard.string(forKey: "User") {
+                
+                if let json = result.data(using: String.Encoding.utf8, allowLossyConversion: false) {
+                   
+                    do {
+                        let verifica = try JSONDecoder().decode(User.self, from: json)
+                        retornoJson = verifica
+                        
+                    }catch{
+                        let parameter = [] as JSON
+                        retornoJson = User(json: parameter)!
+                    }
+                    
+                }
+                
+                
+            }
+        
+        return retornoJson
+            
     }
 
-
+}

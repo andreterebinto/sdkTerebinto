@@ -22,35 +22,7 @@ public struct RegisterNetwork {
         }
     }
     
-    static func registration(parameters: [String: Any], completion:@escaping (_ success: Bool,_ tipology: JSON) -> Void){
-        
-        LoginRoutes.request(.post, endpoint: LoginRoutes.baseURL, parameters: parameters ) { (json) in
-            if json != JSON.null {
-                guard let dictionary = json.dictionaryObject else{
-                    completion(false,JSON.null)
-                    return
-                }
-                
-                if let error = dictionary["typeErrorReturn"] as? String{
-                    
-                    if error == "SUCCESS"{
-                        let object = json["object"].dictionaryValue
-                        debugPrint(object)
-                        completion(true, JSON(object))
-                    } else if error == "BUSINESS"{
-                        completion(true, json["message"])
-                        
-                    }else if error == "EXECUTION"{
-                        completion(false, json["message"])
-                    }else {
-                        completion(false,JSON.null)
-                    }
-                }
-            } else {
-                completion(false,JSON.null)
-            }
-        }
-    }
+   
     
     public static func refreshToken(completion:@escaping (_ success: Bool,_ tipology: JSON) -> Void){
         
@@ -117,14 +89,16 @@ public struct RegisterNetwork {
         
         
         if(email == ""){
-            completion(false,JSON.null)
+            let param = ["Message": "Error_BlankMail"] as JSON
+            completion(false,param)
         }else{
         
         
             LoginRoutes.request(.get, endpoint: LoginRoutes.baseURL+LoginRoutes.saltURL+email ) { (json) in
                 if json != JSON.null {
                     guard json.dictionaryObject != nil else{
-                        completion(false,JSON.null)
+                        let param = ["Message": "Error"] as JSON
+                        completion(false,param)
                         return
                     }
                     
@@ -154,11 +128,11 @@ public struct RegisterNetwork {
                                                 pref.set(response["Token"].rawString(), forKey: "Token")
                                                 completion(true,response)
                                             }else{
-                                                completion(false,JSON.null)
+                                                completion(false,response)
                                             }
                                           
                                         } else {
-                                            completion(false,JSON.null)
+                                            completion(false,response)
                                         }
                                 }
                                 
@@ -167,17 +141,18 @@ public struct RegisterNetwork {
                                 
                                 
                             }catch{
-                                completion(false,JSON.null)
+                                let param = ["Message": "Error"] as JSON
+                                completion(false,param)
                             }
                         }
                         
                       
                     }else{
-                        completion(false,JSON.null)
+                        completion(false,json)
                     }
                     
                 } else {
-                    completion(false,JSON.null)
+                    completion(false,json)
                 }
             }
             

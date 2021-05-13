@@ -1,5 +1,5 @@
 //
-//  LoginRoute.swift
+//  KeyRoute.swift
 //  sdkTeste
 //
 //  Created by Andre Terebinto on 23/04/21.
@@ -9,15 +9,15 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-public enum UserRoutes {
+public enum KeyRoutes {
     
     static let originalDNS = AppRoutes.originalDNS
     static let baseURL = "\(originalDNS)"
     static let headers = AppRoutes.headers
-    static let geuUserURL = "user/info"
-    static let loginURL = "auth/login"
-    static let refreshURL = "auth/refresh"
-    static let updateURL = "user/changeinfo"
+    static let greateKeyUrl = "key/create"
+    static let getkeysUrl = "key/all"
+    static let getKeyByIdURL = "key/"
+    static let deleteKeyURL = "key"
     static let debugRequests = true
     
     
