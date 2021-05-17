@@ -105,7 +105,7 @@ public struct RegisterNetwork {
                        
                         //GetPassWord Salt
                         let salt = json["PasswordSalt"].description;
-                        
+                        print(salt)
                         if let nsdata1 = Data(base64Encoded: salt, options: NSData.Base64DecodingOptions.ignoreUnknownCharacters) {
 
                             let passSalt = nsdata1.withUnsafeBytes {

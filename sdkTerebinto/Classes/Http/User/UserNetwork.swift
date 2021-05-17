@@ -93,7 +93,7 @@ public struct UserNetwork {
     
     public static func postImage(image: UIImage, completion:@escaping (_ success: Bool,_ tipology: Int) -> Void){
         
-        let jpgData = image.jpegData(compressionQuality: 0.6)
+        let jpgData = image.jpegData(compressionQuality: 0.2)
           let stream = InputStream(data: jpgData!)
         
         UserRoutes.requestPut(.put, endpoint: UserRoutes.baseURL+UserRoutes.uploadPhotoURL, parameters: stream ) { (json) in

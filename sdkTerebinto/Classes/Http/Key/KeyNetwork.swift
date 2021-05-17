@@ -23,19 +23,33 @@ public struct KeyNetwork {
     }
     
     public static func createKey(Name: String, KeyType: Int, Algorithm: Int, Expiration: String, completion:@escaping (_ success: Bool,_ tipology: JSON) -> Void){
-       
-        let parameters = ["Name": Name, "KeyType": KeyType, "Algorithm": Algorithm, "Expiration": Expiration, "Value": ""] as [String : String]
-        
-        KeyRoutes.request(.post, endpoint: KeyRoutes.baseURL+KeyRoutes.greateKeyUrl, parameters: parameters ) { (json) in
-            if json != JSON.null {
-                guard json.dictionaryObject != nil else{
-                    completion(false,JSON.null)
-                    return
-                }
-                
-                completion(true, json)
+        let date = Date()
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: date)
+        let minute = calendar.component(.minute, from: date)
+        let second = calendar.component(.second, from: date)
+        let nowHour = Expiration.description+"T"+hour.description+":"+minute.description+":"+second.description+".000Z"
+        print(nowHour)
+        let parameters = ["UserId": "", "Name": Name.description, "KeyType": KeyType, "Algorithm": Algorithm, "Expiration": nowHour, "Value": "asd"] as! [String : Any]
+        print(parameters)
+        KeyRoutes.requestInt(.post, endpoint: KeyRoutes.baseURL+KeyRoutes.greateKeyUrl, parameters: parameters ) { (json) in
+            if (json == 200) {
+                completion(true, 200)
             } else {
-                completion(false,JSON.null)
+                completion(false,401)
+            }
+        }
+    }
+    
+    public static func deleteKey(keyId: String, completion:@escaping (_ success: Bool,_ tipology: JSON) -> Void){
+       
+        let parameters = ["keyId": keyId] as! [String : Any]
+       
+        KeyRoutes.requestInt(.delete, endpoint: KeyRoutes.baseURL+KeyRoutes.deleteKeyURL+"?keyId="+keyId.description, parameters: parameters ) { (json) in
+            if (json == 200) {
+                completion(true, 200)
+            } else {
+                completion(false,401)
             }
         }
     }
@@ -45,24 +59,14 @@ public struct KeyNetwork {
         if(id != ""){
             KeyRoutes.request(.get, endpoint: KeyRoutes.baseURL+KeyRoutes.getKeyByIdURL+id! ) { (json) in
                 if json != JSON.null {
-                    guard json.dictionaryObject != nil else{
-                        completion(false,JSON.null)
-                        return
-                    }
-                    
                     completion(true, json)
                 } else {
                     completion(false,JSON.null)
                 }
             }
         }else{
-            KeyRoutes.request(.post, endpoint: KeyRoutes.baseURL+KeyRoutes.greateKeyUrl ) { (json) in
+            KeyRoutes.request(.get, endpoint: KeyRoutes.baseURL+KeyRoutes.getkeysUrl ) { (json) in
                 if json != JSON.null {
-                    guard json.dictionaryObject != nil else{
-                        completion(false,JSON.null)
-                        return
-                    }
-                    
                     completion(true, json)
                 } else {
                     completion(false,JSON.null)
@@ -89,6 +93,8 @@ public struct KeyNetwork {
             KeyNetwork.showActivityIndicator(show: false)
         }
     }
+    
+   
     
     /// All errors `scrypt` can throw.
     /// - Tag: scryptErrorType

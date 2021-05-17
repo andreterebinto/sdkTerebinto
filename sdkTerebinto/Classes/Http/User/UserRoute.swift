@@ -28,15 +28,15 @@ public enum UserRoutes {
                 "Content-Type": "application/json"
             ] as HTTPHeaders
         
-            AF.request(endpoint, method: method,encoding: JSONEncoding.default, headers: headers).responseData { (response) in
-            
+            AF.request(endpoint, method: method,encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
+                print(response.response?.statusCode)
             switch(response.result) {
             case .success(let json):
                 // TODO: - The line below is crashing. Check it.
                 completion(JSON(json))
                 break
             case .failure(let error):
-               
+                completion(JSON.null)
                     let uc = ("\(method)").uppercased()
                     print("[NETWORK] \(uc) Request to \(endpoint) failed! (Error: \(error))")
                 
@@ -79,9 +79,7 @@ public enum UserRoutes {
         
             AF.request(endpoint, method: method,encoding: JSONEncoding.default, headers: headers).responseString { (response) in
             
-               
-                
-                if(response.response?.statusCode == 200){
+               if(response.response?.statusCode == 200){
                     completion(response)
                     
                 }else{
