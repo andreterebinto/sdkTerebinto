@@ -114,7 +114,12 @@ public struct UserNetwork {
           
             if(returnPhoto.response?.statusCode == 200){
                 //returnPhoto.response?.headers["Etag"]?.description
-                completion(true, returnPhoto.data)
+                if(returnPhoto.data != nil){
+                    completion(true, returnPhoto.data)
+                }else{
+                    completion(false, "")
+                }
+                
             }else{
                 completion(false, "")
             }
@@ -152,6 +157,7 @@ public struct UserNetwork {
                     
                     getImage() {(success, response) in
                          if(success){
+                            
                             let image = UIImage(data: response as! Data)
                             let imageSaveData = image!.jpegData(compressionQuality: 0.6) as NSData?
                             let base64String = imageSaveData?.base64EncodedString()

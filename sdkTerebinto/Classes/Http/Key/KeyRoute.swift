@@ -16,8 +16,10 @@ public enum KeyRoutes {
     static let headers = AppRoutes.headers
     static let greateKeyUrl = "key/create"
     static let getkeysUrl = "key/all"
-    static let getKeyByIdURL = "key/"
+    static let getKeyByIdURL = "key"
     static let deleteKeyURL = "key"
+    static let encryptURL = "key/encrypt"
+    static let decryptURL = "key/decrypt"
     static let debugRequests = true
     
     
@@ -49,8 +51,11 @@ public enum KeyRoutes {
     }
     
     static func request(_ method : HTTPMethod, endpoint : String, parameters : [String : Any], completion : @escaping (_ data : JSON) -> Void) -> Void {
-        
-        AF.request(endpoint, method: method, parameters: parameters,encoding: JSONEncoding.default, headers: nil).response { (response) in
+        let headers = [
+                "Authorization": "Bearer "+UserDefaultsManagers.getToken(),
+                "Content-Type": "application/json"
+            ] as HTTPHeaders
+        AF.request(endpoint, method: method, parameters: parameters,encoding: JSONEncoding.default, headers: headers).response { (response) in
             print(response.response?.statusCode)
             print(response)
             switch(response.result) {
@@ -75,7 +80,9 @@ public enum KeyRoutes {
             ] as HTTPHeaders
         
         AF.request(endpoint, method: method, parameters: parameters,encoding: JSONEncoding.default, headers: headers).responseString { (response) in
-            
+            print(response)
+            print(response.response?.statusCode)
+            print(response.response?.headers)
             if(response.response?.statusCode == 200){
                 completion(200)
                 

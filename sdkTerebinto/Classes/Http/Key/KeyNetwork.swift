@@ -22,15 +22,37 @@ public struct KeyNetwork {
         }
     }
     
-    public static func createKey(Name: String, KeyType: Int, Algorithm: Int, Expiration: String, completion:@escaping (_ success: Bool,_ tipology: JSON) -> Void){
+    public static func createKey(Name: String, KeyType: Int, Algorithm: Int, Expiration: String, Value: String, completion:@escaping (_ success: Bool,_ tipology: JSON) -> Void){
         let date = Date()
         let calendar = Calendar.current
         let hour = calendar.component(.hour, from: date)
         let minute = calendar.component(.minute, from: date)
         let second = calendar.component(.second, from: date)
-        let nowHour = Expiration.description+"T"+hour.description+":"+minute.description+":"+second.description+".000Z"
+        var addSec = ""
+        var addMin = ""
+        var addHour = ""
+        
+        if (hour < 10){
+            addHour = "0"+hour.description
+        }else{
+            addHour = hour.description
+        }
+        
+        if (second < 10){
+            addSec = "0"+second.description
+        }else{
+            addSec = second.description
+        }
+        
+        if (minute < 10){
+            addMin = "0"+minute.description
+        }else{
+            addMin = minute.description
+        }
+        
+        let nowHour = Expiration.description+"T"+addHour+":"+addMin+":"+addSec+".000Z"
         print(nowHour)
-        let parameters = ["UserId": "", "Name": Name.description, "KeyType": KeyType, "Algorithm": Algorithm, "Expiration": nowHour, "Value": "asd"] as! [String : Any]
+        let parameters = ["UserId": "", "Name": Name.description, "KeyType": KeyType, "Algorithm": Algorithm, "Expiration": nowHour, "Value": Value] as! [String : Any]
         print(parameters)
         KeyRoutes.requestInt(.post, endpoint: KeyRoutes.baseURL+KeyRoutes.greateKeyUrl, parameters: parameters ) { (json) in
             if (json == 200) {
@@ -40,6 +62,33 @@ public struct KeyNetwork {
             }
         }
     }
+    
+    public static func encryptKey(KeyId: String, Text: String, completion:@escaping (_ success: Bool,_ tipology: JSON) -> Void){
+       
+        let parameters = ["UserId": "", "KeyId": KeyId.description, "Text": Text.description] as! [String : Any]
+       
+        KeyRoutes.request(.post, endpoint: KeyRoutes.baseURL+KeyRoutes.encryptURL, parameters: parameters ) { (json) in
+            if json != JSON.null {
+                completion(true, json)
+            } else {
+                completion(false,JSON.null)
+            }
+        }
+    }
+    
+    public static func decryptKey(KeyId: String, Text: String, completion:@escaping (_ success: Bool,_ tipology: JSON) -> Void){
+       
+        let parameters = ["UserId": "", "KeyId": KeyId.description, "Ciphertext": Text.description] as! [String : Any]
+       
+        KeyRoutes.request(.post, endpoint: KeyRoutes.baseURL+KeyRoutes.decryptURL, parameters: parameters ) { (json) in
+            if json != JSON.null {
+                completion(true, json)
+            } else {
+                completion(false,JSON.null)
+            }
+        }
+    }
+    
     
     public static func deleteKey(keyId: String, completion:@escaping (_ success: Bool,_ tipology: JSON) -> Void){
        
@@ -57,7 +106,7 @@ public struct KeyNetwork {
     public static func getKeys(id: String?, completion:@escaping (_ success: Bool,_ tipology: JSON) -> Void){
         
         if(id != ""){
-            KeyRoutes.request(.get, endpoint: KeyRoutes.baseURL+KeyRoutes.getKeyByIdURL+id! ) { (json) in
+            KeyRoutes.request(.get, endpoint: KeyRoutes.baseURL+KeyRoutes.getKeyByIdURL+"/id?keyId="+id!.description ) { (json) in
                 if json != JSON.null {
                     completion(true, json)
                 } else {
