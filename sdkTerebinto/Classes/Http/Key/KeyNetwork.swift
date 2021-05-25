@@ -50,9 +50,14 @@ public struct KeyNetwork {
             addMin = minute.description
         }
         
-        let nowHour = Expiration.description+"T"+addHour+":"+addMin+":"+addSec+".000Z"
-        print(nowHour)
-        let parameters = ["UserId": "", "Name": Name.description, "KeyType": KeyType, "Algorithm": Algorithm, "Expiration": nowHour, "Value": Value] as! [String : Any]
+        let nowHour = Expiration.description+"T"+addHour+":"+addMin+":"+addSec+"+0000"
+        
+       
+
+        let dateFormatter = ISO8601DateFormatter()
+        let dates = dateFormatter.date(from:nowHour)!
+        
+        let parameters = ["UserId": "", "Name": Name.description, "KeyType": KeyType, "Algorithm": Algorithm, "Expiration": Int(dates.timeIntervalSince1970), "Value": Value] as! [String : Any]
         print(parameters)
         KeyRoutes.requestInt(.post, endpoint: KeyRoutes.baseURL+KeyRoutes.greateKeyUrl, parameters: parameters ) { (json) in
             if (json == 200) {
@@ -128,6 +133,19 @@ public struct KeyNetwork {
     }
     
     
+    public static func getKeysAll(completion:@escaping (_ success: Bool,_ tipology: JSON) -> Void){
+        
+       
+        KeyRoutes.request(.get, endpoint: KeyRoutes.baseURL+KeyRoutes.decryptlistUrlDevices ) { (json) in
+                if json != JSON.null {
+                    completion(true, json)
+                } else {
+                    completion(false,JSON.null)
+                }
+            }
+         
+       
+    }
     
 
     private static func showActivityIndicator(show: Bool) {

@@ -20,6 +20,7 @@ public enum KeyRoutes {
     static let deleteKeyURL = "key"
     static let encryptURL = "key/encrypt"
     static let decryptURL = "key/decrypt"
+    static let decryptlistUrlDevices = "key/all_to_encrypt_decrypt"
     static let debugRequests = true
     
     
